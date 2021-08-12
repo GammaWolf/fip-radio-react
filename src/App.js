@@ -114,7 +114,7 @@ function App() {
       <div className="titleLineContainer">
         <h1 className="title" title="unofficial site for fip.fr radio" style={{ '--active-channel-color': activeChannelColor() }}>Fip Radio Lyrics</h1>
 
-        <audio id="player" controls autoPlay ></audio>
+        <audio id="player" controls autoPlay src={activeChannel?.listenUrl}></audio>
 
         <div className="miscButtons" data-nosnippet="">
           {/* setting font-size, because having different font size as the buttons messes up icon alignment between button and link images */}
