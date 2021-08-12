@@ -51,7 +51,7 @@ function App() {
 
   // one-time song tracker initialization
   if (!playingTracker) {
-    playingTracker = new FipPlayingSongTracker(activeChannel?.id, true)
+    playingTracker = new FipPlayingSongTracker(activeChannel?.id, isDevMode)
     playingTracker.start()
   }
 
