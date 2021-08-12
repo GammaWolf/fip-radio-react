@@ -160,7 +160,7 @@ function App() {
               }
             </div>
             {lyricsInfo?.lyricsSourceLink &&
-              <a id="lyricsSourceLink" href={lyricsInfo?.lyricsSourceLink} target="_blank">source: chartlyrics.com</a>
+              <a id="lyricsSourceLink" href={lyricsInfo?.lyricsSourceLink} target="_blank" rel="noopener noreferrer">source: chartlyrics.com</a>
             }
           </>
         }
@@ -235,7 +235,6 @@ function App() {
 
   // returns array of text columns
   function tryColumnizeText(lyricsUiText) {
-    console.log('lyricsUiText ' + lyricsUiText)
     // attempt to use multiple columns 
     const minNewlinesToUseColumns = 24
     // eslint-disable-next-line
