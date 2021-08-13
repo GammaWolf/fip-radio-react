@@ -60,7 +60,6 @@ button:hover::-moz-focus-inner {
 
 .iconBtn svg {
   height: 20px;
-  vertical-align: middle;
 }
 
 a.iconBtn:visited {
