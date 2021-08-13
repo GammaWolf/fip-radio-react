@@ -63,6 +63,7 @@ function App() {
     return () => { playingTracker.unsubscribe(onPlayingChanged) }
   }, []) // empty arr to make it run only once
 
+  // when lyrics request comes back
   useEffect(() => {
     let lyricsColumns = lyricsInfo ? tryColumnizeText(lyricsInfo?.lyrics) : []
     setLyricsTextColumns(lyricsColumns)
@@ -71,7 +72,8 @@ function App() {
   // when channel changes
   useEffect(() => {
     console.log('useEffect [activeChannel]')
-    setPlaying(null)
+    // setting active channel on tracker, but not calling setPlaying(null) in this handler, this is done in playingTracker's change handler,
+    // because playingTracker delays the change notification a bit to enable seamless (gapless) transition between channels
     playingTracker.activeChannelId = activeChannel?.id
   }, [activeChannel])
 
