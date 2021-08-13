@@ -50,6 +50,8 @@ button:hover::-moz-focus-inner {
 
 .iconBtn {
   padding: 0px 8px;
+  /* makes content align properly */
+  display:flex;
 }
 
 .iconBtn:hover:not([disabled])  {
