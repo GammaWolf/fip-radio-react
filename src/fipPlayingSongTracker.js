@@ -199,9 +199,9 @@ export default class FipPlayingSongTracker {
             } else {
                 console.log("response's songInfo is null, trying nextTracks data")
                 // sometimes json.data.now.song is null. but the next song in the json is already playing -> use that
-                let is = this.artistAndSongTitleFromNextTracks(json)
-                if (is) {
-                    ({artist, songTitle} = is)
+                let artistAndSongTitle = this.artistAndSongTitleFromNextTracks(json)
+                if (artistAndSongTitle) {
+                    ({artist, songTitle} = artistAndSongTitle)
                 }
             }
 
