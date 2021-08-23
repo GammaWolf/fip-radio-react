@@ -189,54 +189,66 @@ export default class FipPlayingSongTracker {
     playingFromJson(json) {
         try {
             let songInfo = json.data.now.song
-            if (songInfo == null) {
-                console.log('songInfo null')
-            }
 
-            let serverTime = json.data.now.server_time
-            let nextRefresh = json.data.now.next_refresh
-
-            let interpreters = null
+            let artist = null
             let songTitle = null
 
             if (songInfo != null) {
-                interpreters = songInfo.interpreters ? songInfo.interpreters.join(', ') : null
+                artist = songInfo.interpreters ? songInfo.interpreters.join(', ') : null
                 songTitle = songInfo.title
             } else {
-                console.log("response's songInfo is null")
+                console.log("response's songInfo is null, trying nextTracks data")
                 // sometimes json.data.now.song is null. but the next song in the json is already playing -> use that
-                let nextTracks = json.data.nextTracks
-                if (nextTracks && nextTracks.length > 0) {
-                    let nextTrackStartTime = nextTracks[0].start_time
-                    // has next track started playing already
-                    if (serverTime >= nextTrackStartTime) {
-                        // only if song could reasonably still be playing
-                        const MAX_SONG_LENGTH_SEC = 60 * 10
-                        if (nextTrackStartTime && serverTime > nextTrackStartTime + MAX_SONG_LENGTH_SEC) {
-                            console.log("not using response's nextTracks because it's stale")
-                            return null
-                        }
-                        console.log('using data from json nextTitles')
-                        interpreters = nextTracks[0].title
-                        songTitle = nextTracks[0].subtitle
-                    }
-                } else {
-                    console.log("nextTracks empty")
+                let is = this.artistAndSongTitleFromNextTracks(json)
+                if (is) {
+                    ({artist, songTitle} = is)
                 }
             }
 
+            if (!artist && !songTitle) {
+                console.log('playing not found')
+                return null
+            }
+
             let p = new Playing(
-                interpreters,
+                artist,
                 songTitle)
 
-            p.serverTime = serverTime
-            p.nextRefresh = nextRefresh
+            p.serverTime = json.data.now.server_time
+            p.nextRefresh = json.data.now.next_refresh
             return p
         }
         catch (err) {
             console.log('err getting currently playing', err)
         }
         return null; // not found
+    }
+
+    artistAndSongTitleFromNextTracks(json) {
+        // sometimes json.data.now.song is null. but the next song in the json is already playing -> use that
+        let serverTime = json.data.now.server_time
+        let nextTracks = json.data.nextTracks
+        if (nextTracks && nextTracks.length > 0) {
+            let nextTrackStartTime = nextTracks[0].start_time
+            // has next track started playing already
+            if (serverTime >= nextTrackStartTime) {
+                // only if song could reasonably still be playing
+                const MAX_SONG_LENGTH_SEC = 60 * 10
+                if (nextTrackStartTime && serverTime > nextTrackStartTime + MAX_SONG_LENGTH_SEC) {
+                    console.log("not using response's nextTracks because it's stale")
+                    return null
+                }
+                console.log('using data from json nextTitles')
+                let artist = nextTracks[0].title
+                let songTitle = nextTracks[0].subtitle
+                return {artist, songTitle}
+            } else {
+                console.log("nextTrack hasn't started playing yet")
+            }
+        } else {
+            console.log("nextTracks empty")
+        }
+        return null
     }
 
     // https://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid
