@@ -1,5 +1,7 @@
     #channels {
-        display: inline-block;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
       }
   
       .channelsListElem {
@@ -55,4 +57,23 @@
         fill: var(--active-channel-color);
       }
   
-  
+      /* force flexbox-wrap to wrap at least two channels by inserting break in range
+      see https://stackoverflow.com/questions/29732575/how-to-specify-line-breaks-in-a-multi-line-flexbox-layout*/
+      @media screen and (min-width: 600px) and (max-width: 830px) {
+        #channels::before {
+          content: '';
+          width: 100%;
+          order: 1;
+        }
+        .channelsListElem:nth-child(n + 8) {
+          order: 1;
+        }
+    }
+
+    /* 3 col grid for very small widths */
+    @media screen and (max-width: 500px) {
+      #channels {
+        display: grid;
+        grid-template-columns: min-content min-content min-content;
+      }
+    }
