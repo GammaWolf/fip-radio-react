@@ -28,7 +28,7 @@
       /* prevents layout changes when text becomes bold by having a hidden bold text block there so layout is calculated with that */
       .channelsListElem a::after {
         display: block;
-        content: attr(title);
+        content: attr(data-title);
         font-weight: bold;
         height: 0;
         overflow: hidden;

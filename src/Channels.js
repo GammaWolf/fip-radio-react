@@ -14,7 +14,7 @@ function Channels({ channels, activeChannel, setActiveChannel }) {
                     <div className='channelsListElem' id={'channelElem' + channel.id} key={channel.id}
                         style={{ '--elem-accent': staleAccentColor, '--channel-hover-color': hoverColor, '--active-channel-color': activeChannelColor }}
                         data-active={isActive}>
-                        <a href={'#' + channel.anchor} title={channel.name} onClick={(e) => setActiveChannel(channel)}>{channel.name}</a>
+                        <a href={'#' + channel.anchor} data-title={channel.name} onClick={(e) => setActiveChannel(channel)}>{channel.name}</a>
                         {isActive && activeMarker()}
                     </div>
                 );
