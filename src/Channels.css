@@ -1,11 +1,11 @@
     #channels {
         display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+        justify-content: stretch;
       }
   
       .channelsListElem {
         /* horizontal menu */
+        flex-grow: 1;
         float: left;
   
         --elem-accent: transparent;
@@ -64,3 +64,12 @@
         grid-template-columns: 1fr 1fr 1fr;
       }
     }
+
+    /* grid with dynamic 3 to 5 columns: https://stackoverflow.com/a/69154193 */
+    @media screen and (max-width: 1000px) {
+      #channels {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%/3, max(150px, 100%/5)), 1fr));
+      }
+    }
+  

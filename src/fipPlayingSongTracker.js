@@ -114,6 +114,8 @@ export default class FipPlayingSongTracker {
                 this.setPlaying(freshPlaying)
                 return freshPlaying
             }
+        } catch (error) {
+            console.log(error)
         } finally {
             if (this.updateTimeoutId === null) {
                 this.updateTimeoutId = setTimeout(() => this.start(), this.autoUpdateIntervalInMs)

@@ -19,6 +19,11 @@ html {
   scrollbar-color: #7f7f7f transparent;
 }
 
+#root {
+  width: 100%;
+  max-width: 1050px;
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -116,7 +121,7 @@ a#spotifyLink[disabled] {
   opacity: 0.66;
 }
 
-@media (max-width: 620px) {
+@media (max-width: 675px) {
   .titleLineContainer {
     display: grid;
   }
