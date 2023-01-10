@@ -17,6 +17,7 @@ html {
   overflow-y: scroll;
   /* hides inactive vertical scrollbar (transparent track) */
   scrollbar-color: #7f7f7f transparent;
+  box-sizing: border-box;
 }
 
 #root {
@@ -121,7 +122,7 @@ a#spotifyLink[disabled] {
   opacity: 0.66;
 }
 
-@media (max-width: 675px) {
+@media (max-width: 690px) {
   .titleLineContainer {
     display: grid;
   }
