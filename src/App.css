@@ -41,6 +41,8 @@ body {
   background: var(--bg-color);
   color: var(--fg-color);
   fill: var(--fg-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 button {
