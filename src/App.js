@@ -29,7 +29,7 @@ const channels =
     { name: 'monde', anchor: 'monde', id: 69, listenUrl: baseListenUrl + 'fipworld-hifi.aac', colorAsHsl: { h: 35, s: 85, l: 58 } },
     { name: 'reggae', anchor: 'reggae', id: 71, listenUrl: baseListenUrl + 'fipreggae-hifi.aac', colorAsHsl: { h: 114, s: 27, l: 36 } },
     { name: 'nouveautés', anchor: 'nouveautes', id: 70, listenUrl: baseListenUrl + 'fipnouveautes-hifi.aac', colorAsHsl: { h: 217, s: 84, l: 57 } },
-    { name: 'metal', anchor: 'metal', id: 77, listenUrl: baseListenUrl + 'fipmetal-hifi.aac', colorAsHsl: { h: 257, s: 29, l: 45 } },
+    { name: 'metal', anchor: 'metal', id: 77, listenUrl: baseListenUrl + 'fipmetal-hifi.aac', colorAsHsl: { h: 257, s: 29, l: 55 } },
   ]
 
 function App() {
