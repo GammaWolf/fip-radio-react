@@ -60,7 +60,11 @@ function App() {
   // one-time subscribe to playingTracker to receive changes of playing
   useEffect(() => {
     console.log('useEffect [] // subscribe to playingTracker')
-    let onPlayingChanged = playing => setPlaying(playing)
+    let onPlayingChanged = p => {
+      // check if it really changed (passing in the prev object prevents further effect calls)
+      // handler might also be called with the same data (but different object id)
+      setPlaying(prev => JSON.stringify(p) === JSON.stringify(prev) ? prev : p)
+   }
     playingTracker.subscribe(onPlayingChanged)
     return () => { playingTracker.unsubscribe(onPlayingChanged) }
   }, []) // empty arr to make it run only once
