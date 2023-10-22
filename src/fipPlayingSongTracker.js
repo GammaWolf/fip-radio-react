@@ -88,7 +88,7 @@ export default class FipPlayingSongTracker {
         console.log('fetching data')
         let url = 
             this.isDevMode 
-            ? "https://www.radiofrance.fr/api/v2.1/stations/fip/live/webradios" 
+            ? "https://www.radiofrance.fr/fip/api/live/webradios" 
             : "/latest/api"
 
         let response = await fetch(url, {
