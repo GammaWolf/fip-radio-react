@@ -15,7 +15,7 @@ export default class FipPlayingSongTracker {
     observers = []
     _activeChannelId = null
     _lastFetchedPlayingJson = null
-    _playingByChannelId = new Map()
+    _playing = undefined
 
     constructor(activeChannelId, isDevMode) {
         this._activeChannelId = activeChannelId
@@ -27,7 +27,9 @@ export default class FipPlayingSongTracker {
             return
 
         this._activeChannelId = activeChannelId
+        this._playing = undefined
         this.notifySubscribers()
+        this.start()
       }
 
       get activeChannelId() {
@@ -45,7 +47,7 @@ export default class FipPlayingSongTracker {
     }
 
     notifySubscribers() {
-        let p = this._playingByChannelId.get(this.activeChannelId)
+        let p = this._playing
         this.observers.forEach(o => o(p))
     }
     
@@ -60,19 +62,13 @@ export default class FipPlayingSongTracker {
             let playingJson = await this.fetchPlayingJson()
             if (playingJson === this._lastFetchedPlayingJson)
                 return
-                
+
             // TODO is valid check
             this._lastFetchedPlayingJson = playingJson
 
-            this._playingByChannelId = new Map(
-                playingJson
-                .filter(i => !isNaN(parseInt(i.id)))
-                .map(i => [
-                    parseInt(i.id), 
-                    new Playing(i.live?.now?.secondLine, i.live?.now?.firstLine)
-                    ])
-                )
-
+            this._playing = new Playing(playingJson?.now?.secondLine?.title, playingJson?.now?.firstLine?.title)
+            // console.log(this._playing, playingJson);
+    
             this.notifySubscribers()
         } catch (error) {
             console.log(error)
@@ -88,10 +84,15 @@ export default class FipPlayingSongTracker {
         console.log('fetching data')
         let url = 
             this.isDevMode 
-            ? "https://www.radiofrance.fr/fip/api/live/webradios" 
+            ? "https://www.radiofrance.fr/fip/api/live" 
             : "/latest/api"
 
-        let response = await fetch(url, {
+        let u = new URL(url)
+        // console.log("this._activeChannelId", this._activeChannelId, this._stationApiIdFromChannelId(this._activeChannelId), this,this._channelIdToApiId);
+        
+        u.searchParams.set("webradio", this._stationApiIdFromChannelId(this._activeChannelId))
+
+        let response = await fetch(u, {
             headers: {
                 'Cache-Control': 'no-store, no-cache, must-revalidate',
                 'Pragma': 'no-cache'
@@ -99,9 +100,25 @@ export default class FipPlayingSongTracker {
         })
 
         if (!response)
-            throw Error(`empty fetch response for url=${url}`)
+            throw Error(`empty fetch response for url=${u}`)
 
         return await response.json()
+    }
+
+    _channelIdToApiId = new Map([
+        [7, 'fip'],
+        [64, 'fip_rock'],
+        [65, 'fip_jazz'],
+        [66, 'fip_groove'],
+        [78, 'fip_pop'],
+        [74, 'fip_electro'],
+        [69, 'fip_monde'],
+        [71, 'fip_reggae'],
+        [70, 'fip_nouveautes'],
+        [77, 'fip_metal'],
+    ])
+    _stationApiIdFromChannelId(id) {
+        return this._channelIdToApiId.get(id)
     }
 
 }
