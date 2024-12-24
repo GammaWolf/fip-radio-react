@@ -1,6 +1,8 @@
 #channels {
-  display: flex;
-  justify-content: stretch;
+  display: grid;
+
+  /* grid with dynamic 2 to 6 columns: https://stackoverflow.com/a/69154193 */
+  grid-template-columns: repeat(auto-fill, minmax(min(100%/2, max(175px, 100%/6)), 1fr));
 }
 
 .channelsListElem {
@@ -57,12 +59,4 @@
   width: 9px;
   height: 0;
   fill: var(--active-channel-color);
-}
-
-/* grid with dynamic 3 to 5 columns: https://stackoverflow.com/a/69154193 */
-@media screen and (max-width: 1000px) {
-  #channels {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%/2, max(150px, 100%/5)), 1fr));
-  }
 }
