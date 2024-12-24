@@ -1,0 +1,1 @@
+npx wrangler pages deploy build/ --branch=main --project-name=fip-radio
