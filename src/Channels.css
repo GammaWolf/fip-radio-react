@@ -10,6 +10,8 @@
 
   --elem-accent: transparent;
   box-shadow: inset var(--elem-accent) 0px -3px;
+
+  white-space: nowrap;
 }
 
 .channelsListElem a {

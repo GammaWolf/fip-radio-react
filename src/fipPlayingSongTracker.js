@@ -84,15 +84,13 @@ export default class FipPlayingSongTracker {
         console.log('fetching data')
         let url = 
             this.isDevMode 
-            ? "https://www.radiofrance.fr/fip/api/live" 
-            : "/latest/api"
+            ? new URL("https://www.radiofrance.fr/fip/api/live")
+            : new URL("/latest/api", window.location.href)
 
-        let u = new URL(url)
         // console.log("this._activeChannelId", this._activeChannelId, this._stationApiIdFromChannelId(this._activeChannelId), this,this._channelIdToApiId);
-        
-        u.searchParams.set("webradio", this._stationApiIdFromChannelId(this._activeChannelId))
+        url.searchParams.set("webradio", this._stationApiIdFromChannelId(this._activeChannelId))
 
-        let response = await fetch(u, {
+        let response = await fetch(url, {
             headers: {
                 'Cache-Control': 'no-store, no-cache, must-revalidate',
                 'Pragma': 'no-cache'
@@ -100,7 +98,7 @@ export default class FipPlayingSongTracker {
         })
 
         if (!response)
-            throw Error(`empty fetch response for url=${u}`)
+            throw Error(`empty fetch response for url=${url}`)
 
         return await response.json()
     }
@@ -116,6 +114,8 @@ export default class FipPlayingSongTracker {
         [71, 'fip_reggae'],
         [70, 'fip_nouveautes'],
         [77, 'fip_metal'],
+        [98, 'fip_hiphop'],
+        [99, 'fip_sacre_francais'],
     ])
     _stationApiIdFromChannelId(id) {
         return this._channelIdToApiId.get(id)

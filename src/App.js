@@ -21,6 +21,7 @@ const baseListenUrl = 'https://icecast.radiofrance.fr/'
 const channels =
   [
     { name: 'fip', anchor: 'fip', id: 7, listenUrl: baseListenUrl + 'fip-hifi.aac', colorAsHsl: { h: 328, s: 100, l: 44 } },
+    { name: 'sacré français', anchor: 'sacrefrancais', id: 99, listenUrl: baseListenUrl + 'fipsacrefrancais-hifi.aac', colorAsHsl: { h: 15, s: 100, l: 60 } },
     { name: 'rock', anchor: 'rock', id: 64, listenUrl: baseListenUrl + 'fiprock-hifi.aac', colorAsHsl: { h: 355, s: 94, l: 59 } },
     { name: 'jazz', anchor: 'jazz', id: 65, listenUrl: baseListenUrl + 'fipjazz-hifi.aac', colorAsHsl: { h: 182, s: 76, l: 31 } },
     { name: 'groove', anchor: 'groove', id: 66, listenUrl: baseListenUrl + 'fipgroove-hifi.aac', colorAsHsl: { h: 255, s: 80, l: 66 } },
@@ -30,6 +31,7 @@ const channels =
     { name: 'reggae', anchor: 'reggae', id: 71, listenUrl: baseListenUrl + 'fipreggae-hifi.aac', colorAsHsl: { h: 114, s: 27, l: 36 } },
     { name: 'nouveautés', anchor: 'nouveautes', id: 70, listenUrl: baseListenUrl + 'fipnouveautes-hifi.aac', colorAsHsl: { h: 217, s: 84, l: 57 } },
     { name: 'metal', anchor: 'metal', id: 77, listenUrl: baseListenUrl + 'fipmetal-hifi.aac', colorAsHsl: { h: 257, s: 29, l: 55 } },
+    { name: 'hip hop', anchor: 'hiphop', id: 98, listenUrl: baseListenUrl + 'fiphiphop-hifi.aac', colorAsHsl: { h: 178, s: 4, l: 45 } },
   ]
 
 function App() {
@@ -120,7 +122,7 @@ function App() {
     <div className="App">
 
       <div className="titleLineContainer">
-        <h1 className="title" title="unofficial site for fip.fr radio" style={{ '--active-channel-color': activeChannelColor() }}>Fip Radio Lyrics</h1>
+        <h1 className="title" title="unofficial site for fip.fr radio" style={{ '--active-channel-color': activeChannelColor() }}>Fip Radio Light</h1>
 
         <audio id="player" controls autoPlay src={activeChannel?.listenUrl}></audio>
 

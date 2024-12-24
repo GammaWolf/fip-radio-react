@@ -1,5 +1,5 @@
 :root {
-  --bg-color: #fdfdfa;
+  --bg-color: #eeeee9;
   --fg-color: #202020;
   --channel-hover-color: black;
   --active-channel-color: var(--bg-color);
@@ -64,10 +64,10 @@ button:hover::-moz-focus-inner {
 .iconBtn {
   padding: 0px 8px;
   /* makes content align properly */
-  display:flex;
+  display: flex;
 }
 
-.iconBtn:hover:not([disabled])  {
+.iconBtn:hover:not([disabled]) {
   fill: var(--icon-hover-color);
 }
 
